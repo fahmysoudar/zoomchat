@@ -42,6 +42,18 @@ jobs:
           echo '{"appId":"com.soudar.zoomchat","appName":"ZoomChat","webDir":"dist/public","server":{"url":"https://zoomchatlive.com","cleartext":false}}' > android/app/src/main/assets/capacitor.config.json
           echo '{"pkg":"@capacitor/core","filePath":"@capacitor/core"}' > android/app/src/main/assets/capacitor.plugins.json
 
+      - name: Fix Kotlin version conflict
+        run: |
+          echo "
+          configurations.all {
+              resolutionStrategy {
+                  force 'org.jetbrains.kotlin:kotlin-stdlib:1.9.22'
+                  force 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.22'
+                  force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.22'
+              }
+          }
+          " >> android/app/build.gradle
+
       - name: Sync Capacitor Android
         run: npx cap sync android || true
 
