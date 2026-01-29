@@ -33,16 +33,15 @@ jobs:
       - name: Create web directory
         run: mkdir -p dist/public && echo '<!DOCTYPE html><html><head></head><body></body></html>' > dist/public/index.html
 
+      - name: Remove existing android folder
+        run: rm -rf android
+
       - name: Add Android platform
         run: npx cap add android
 
-      - name: Copy custom MainActivity
+      - name: Update MainActivity for cookies
         run: |
-          if [ -f "android/app/src/main/java/com/soudar/zoomchat/MainActivity.java" ]; then
-            echo "Custom MainActivity exists"
-          else
-            mkdir -p android/app/src/main/java/com/soudar/zoomchat
-            cat > android/app/src/main/java/com/soudar/zoomchat/MainActivity.java << 'EOF'
+          cat > android/app/src/main/java/com/soudar/zoomchat/MainActivity.java << 'EOF'
           package com.soudar.zoomchat;
           import android.os.Bundle;
           import android.webkit.CookieManager;
@@ -65,7 +64,6 @@ jobs:
               }
           }
           EOF
-          fi
 
       - name: Create capacitor config
         run: |
