@@ -49,3 +49,4 @@ ENABLE_PAYMENT_SANDBOX = "true"
 PAYMENT_PROVIDER_MODE = "sandbox"
 
 [userenv.shared]
+APP_VERSION = "1.0.1"
